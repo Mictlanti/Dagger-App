@@ -1,4 +1,4 @@
-package com.horizon.daggerhiltapp.repos
+package com.horizon.daggerhiltapp.domain.repository
 
 import javax.inject.Inject
 

@@ -1,12 +1,12 @@
-package com.horizon.daggerhiltapp.viewmodel
+package com.horizon.daggerhiltapp.ui.viewmodel
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.horizon.daggerhiltapp.data.Post
-import com.horizon.daggerhiltapp.repos.GreetingRepo
-import com.horizon.daggerhiltapp.repos.PostRepo
-import com.horizon.daggerhiltapp.views.GreetingService
+import com.horizon.daggerhiltapp.domain.model.Post
+import com.horizon.daggerhiltapp.domain.repository.GreetingRepo
+import com.horizon.daggerhiltapp.domain.repository.PostRepo
+import com.horizon.daggerhiltapp.ui.views.GreetingService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,6 +21,7 @@ class GreetingViewModel @Inject constructor(
     private val repoPost : PostRepo
 ) : ViewModel() {
 
+    //Usamos StateFlow para exponer cambios reactivos de la UI, de modo que Compose se reactive cuando cambien
     private val _greeting = MutableStateFlow("")
     val greeting : StateFlow<String> = _greeting
     val farewell = mutableStateOf("")
@@ -37,6 +38,9 @@ class GreetingViewModel @Inject constructor(
         farewell.value = greetingService.farewell()
     }
 
+    //viewModelScope.launch ejecuta la llamada a la API en segundo plano
+    //Si la API devuelve datos, mostramos el título del primer post.
+    //Si falla, mostramos el error.
     private fun fetchPosts() {
         viewModelScope.launch {
             try {

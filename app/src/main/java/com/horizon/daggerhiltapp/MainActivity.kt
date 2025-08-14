@@ -4,17 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
+import com.horizon.daggerhiltapp.navigation.Navigation
 import com.horizon.daggerhiltapp.ui.theme.DaggerHiltAppTheme
-import com.horizon.daggerhiltapp.viewmodel.GreetingViewModel
-import com.horizon.daggerhiltapp.views.GreetingScreen
+import com.horizon.daggerhiltapp.ui.viewmodel.GreetingViewModel
+import com.horizon.daggerhiltapp.ui.viewmodel.LocationViewModel
+import com.horizon.daggerhiltapp.ui.viewmodel.SharedPrefViewModel
+import com.horizon.daggerhiltapp.ui.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,11 +21,12 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             val viewModel : GreetingViewModel = hiltViewModel()
+            val sharedPrefViewModel : SharedPrefViewModel = hiltViewModel()
+            val locationViewModel: LocationViewModel = hiltViewModel()
+            val userViewModel : UserViewModel = hiltViewModel()
 
             DaggerHiltAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    GreetingScreen(viewModel, innerPadding)
-                }
+                    Navigation(viewModel, sharedPrefViewModel, locationViewModel, userViewModel)
             }
         }
     }

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.compose.compiler)
     kotlin("kapt")
     alias(libs.plugins.dagger)
 }
@@ -17,6 +18,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.google.dagger.hilt.android.testing.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -69,6 +71,10 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    //Navi
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
+
     //viewmodel
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.hilt.navigation.compose)
@@ -76,6 +82,8 @@ dependencies {
     //dagger - hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+    androidTestImplementation(libs.dagger.hilt.android.testing)
+    kaptAndroidTest(libs.hilt.compiler.v248)
 
     //Retrofit
     implementation(libs.retrofit)
@@ -85,4 +93,15 @@ dependencies {
 
     //OkHttp Logging Interceptor para depurar llamadas
     implementation(libs.logging.interceptor)
+
+    //FusedLocationClient
+    implementation(libs.play.services.location)
+    implementation(libs.accompanist.permissions)
+
+    //Room
+    implementation(libs.androidx.room.runtime)
+    kapt(libs.androidx.room.compiler)
+
+    // Room con coroutines
+    implementation(libs.androidx.room.ktx)
 }

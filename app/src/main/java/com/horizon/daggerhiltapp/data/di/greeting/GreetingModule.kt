@@ -1,7 +1,7 @@
-package com.horizon.daggerhiltapp.modules.greetingModule
+package com.horizon.daggerhiltapp.data.di.greeting
 
-import com.horizon.daggerhiltapp.views.GreetingService
-import com.horizon.daggerhiltapp.views.GreetingServiceImpl
+import com.horizon.daggerhiltapp.ui.views.GreetingService
+import com.horizon.daggerhiltapp.ui.views.GreetingServiceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

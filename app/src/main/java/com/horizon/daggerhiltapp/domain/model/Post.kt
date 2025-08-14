@@ -1,4 +1,4 @@
-package com.horizon.daggerhiltapp.data
+package com.horizon.daggerhiltapp.domain.model
 
 data class Post(
     val id: Int,
